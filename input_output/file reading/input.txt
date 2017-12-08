@@ -1,0 +1,4 @@
+this is input file number one
+it has text on mulitple lines
+read these lines and output
+to another file

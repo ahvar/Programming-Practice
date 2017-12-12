@@ -1,0 +1,142 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+/**
+  1.) Calls its base class and member constructors in the order of declaration.
+  2.) If the class is derived from a virtual base classes, it initializes the object
+    base pointers.
+  3.) If the class has or inherits virtual functions, it initializes the object's virtual
+    function pointers. Virtual function pointers point to the class's virtual function
+    table to enable correct binding of virtual function calls to code.
+  4.) It executes any code in its function body
+*/
+
+class Contained1
+{
+public:
+  Contained1()
+  {
+    cout << "Contained1 constructor." << endl;
+  }
+};
+
+class Contained2
+{
+public:
+  Contained2()
+  {
+    cout << "Contained2 constructor." << endl;
+  }
+};
+
+class Contained3
+{
+public: 
+  Contained3()
+  {
+    cout << "Contained3 construcctor." << endl;
+  }
+};
+
+class BaseContainer
+{
+public: 
+  BaseContainer() 
+  {
+    cout << "BaseContainer constructor." << endl;
+  }
+private:
+  Contained1 c1;
+  Contained2 c2;
+};
+
+class DerivedContainer : public BaseContainer 
+{
+public:
+  DerivedContainer() : BaseContainer() {
+    cout << "DerivedContainer constructor." << endl;
+  }
+private:
+  Contained3 c3;
+};
+
+/** Initialize class members from constructor arguments by using a member initializer list. This method uses direct initialization, which is more efficient than using assignment operators inside the constructor body.
+*/
+class Box 
+{
+public: 
+  Box( int width, int length, int height ) : m_width(width), m_length(length), m_height(height) {}
+  int volume() { return m_width * m_length * m_height; }
+private:
+  int m_width;
+  int m_length;
+  int m_height;
+};
+
+class Box2
+{
+public:
+  Box2( int dimension ) : m_width(dimension), m_length(dimension), m_height(dimension) {}
+  int volume() { return m_width * m_length * m_height; }
+private:
+  int m_width;
+  int m_length;
+  int m_height;
+};
+
+class Case
+{
+public:
+  Case( int width, int length, int height ) 
+  {
+    m_width = width;
+    m_length = length;
+    m_height = height;
+  }
+  int volume() { return m_width * m_length * m_height; }
+private:
+  int m_width;
+  int m_length;
+  int m_height;
+};
+
+class StorageCase : public Case
+{
+public:
+  StorageCase( int width, int length, int height, const string descr& ) : Case( width, length, height) 
+  {
+    m_descr = descr;
+  }
+private:
+  string m_descr;
+};
+
+
+class ShippingOrder
+{
+public:
+  ShippingOrder( Box2 b2, double postage ) : m_box(b2), m_postage(postage){}
+private:
+  Box2 m_box;
+  double m_postage;
+};
+
+int main()
+{
+  DerivedContainer dc;
+  int x = 3;
+
+  Box b( 42, 21, 12 );
+  cout << "The volume is " << b.volume();
+
+  //because of explicit constructor, Box2 can be constructed like this
+  Box2 b2 = 44;
+
+  // or passed into a function a Box2 object is required, like this
+  ShippingOrder so( 44, 10.2 );
+
+  const string a = "case description";
+  StorageCase sc( 44, 21, 12, a );
+
+}

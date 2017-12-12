@@ -1,0 +1,33 @@
+#include <iostream>
+
+using namespace std;
+
+class BC1 
+{
+public:
+  BC1() { cout << "BC1 constructor." << endl; }
+};
+
+class BC2
+{
+public:
+  BC2() { cout << "BC2 constructor." << endl; }
+};
+
+class BC3
+{
+public:
+  BC3() { cout << "BC3 constructor." << endl; }
+};
+
+class DC1 : public BC1, public BC2, public BC3
+{
+public:
+  DC1() { cout << "DC constructor." << endl; }
+};
+
+int main()
+{
+  DC1 dc;
+
+}

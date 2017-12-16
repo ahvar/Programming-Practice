@@ -101,23 +101,6 @@ void readData()
 
 }
 
-istream &operator>>( istream &is, Reading &reading )
-{
-  char ch1;
-  if( is >> ch1 && ch1 != '(' ) {
-    is.unget();
-    is.clear(ios_base::failbit);
-    return is;
-  }
-  char ch2;
-  int d;
-  int h;
-  double t;
-  is >> d >> h >> t >> ch2;
-
-
-}
-
 istream &operator>>( istream &is, Year &yr )
 {
   char ch1;
@@ -166,6 +149,7 @@ istream &operator>>( istream &is, Day &dy )
   return is;
 
 }
+
 /**
   Checks that the stream state is not bad() or fail() and that the next character in the stream is '{'.
   If the next character is not '{' we put the unexpected character back into the stream for return to the caller, 
@@ -206,17 +190,6 @@ ifstream &operator>>( ifstream &is, Reading &r )
 
 }
 
-ifstream &readMonth( ifstream &is )
-{
-  char ch1;
-  while( is >> ch1 && isalpha(ch1) ) {
-    if( ch1 != '{' && !isdigit(ch1) ) 
-      while( isalpha(ch1) )
-      
-
-
-}
-
 void getTemps(ifstream &is)
 {
   if( !is ) {
@@ -236,6 +209,8 @@ int main()
   ofstream ost{"datesAndTemps.txt"};
   
   generateData( &ost );
+
+  
 
   ost.close();
 

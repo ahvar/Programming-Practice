@@ -8,7 +8,7 @@
 
 using namespace std;
 
-struct Reading{
+struct Reading {
   double reading;
   Reading(double r) : reading(r){}
 };

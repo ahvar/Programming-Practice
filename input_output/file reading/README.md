@@ -43,4 +43,10 @@
  - note how overloaded right shift operator '<<' returns a reference to ostream 'ostream &'. this allows you to chain together the results of output operations
  - output streams are passed along so that you can "chain" output operations. That is, first output this object and the output second object to the output stream that is the result of the first output operation
  - 
- 
+
+#### tempReader and tempReader2
+- 
+
+
+
+

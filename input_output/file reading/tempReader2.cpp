@@ -157,7 +157,7 @@ ifstream &putBackAndFail( ifstream &is ){
 }
  
 ifstream &readHoursAndTemps( ifstream &is, Reading &r ) {
-  while(goodBeginning(is)){
+  if( goodBeginning(is) ) {
     is >> r.hour >> r.temp;
     if(goodEnding(is))
   }
@@ -174,14 +174,17 @@ ifstream &operator>>( ifstream &is, Reading &r )
   int unit = 0;
   while( goodBeginning(is) && unit < 3) {
     getLetters(is);
-    if ( unit == 0 )
+    if ( unit == 0 ) {
       is >> r.year;
-    else if ( unit == 1 )
+    } else if ( unit == 1 ) {
       is >> r.month;
-    else if ( unit == 2 )
+    } else if ( unit == 2 ) {
       is >> r.day;
-    else if ( unit == 3 )
-      readHoursAndTemps(is, r);
+    } else while ( unit == 3 ) {
+      if( goodBeginning(is) )
+        readHoursAndTemps(is, r);
+      
+    }
     unit++;
   }
   is >> r.temp;

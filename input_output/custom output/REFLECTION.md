@@ -17,3 +17,17 @@
 - ios_base::ate ("at end". open and seek to the end)
 - ios_base::binary (binary mode - beware of system-specific behavior)
 -
+
+#### Binary File I/O
+*Writing*
+- 
+
+*Repositioning the Get Pointer*
+- 
+
+
+
+
+# References and Sources
+Below is a list of books, tutorials, and other resources that were used in the creation of this document.
+- https://courses.cs.vt.edu/cs2604/fall02/binio.html

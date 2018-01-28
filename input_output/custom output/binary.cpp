@@ -21,9 +21,13 @@ int main()
   	return 1;
   }
 
-  int x = 1;
-  
-  ofs.write( reinterpret_cast<char *>(&x), sizeof(int) * 1);
+  vector<int> x(10);
+  for ( int i = 0; i < 10; i++ )
+  	x.push_back(i);
+  unsigned xSize = x.size();
+  ofs.write( reinterpret_cast<char *>(&xSize), sizeof(unsigned));
+  for (int i = 0; i < (int) x.size(); i++)
+  	ofs.write( reinterpret_cast<char *>(&x[i]));
   ofs.close();
 
   cout << "Please enter input file name:\n";
@@ -35,9 +39,13 @@ int main()
   	return 1;
   }  
   
-  int x1;
-  ifs.read( reinterpret_cast<char *>(&x1), sizeof(int) * 1);
-  cout << x1 << endl;
+  vector<int> x1(10);
+  xSize = x1.size();
+  ifs.read( reinterpret_cast<char *>(&xSize), sizeof(unsigned));
+  for ( int i = 0; i < (int) x1.size(); i++ )
+  	ifs.read( reinterpret_cast<char *>(&x1[0]), size);
+  for(int i = 0; i < (int) x1.size(); i++)
+  	cout << x1[i] << endl;
   ifs.close();
   
   return 0;

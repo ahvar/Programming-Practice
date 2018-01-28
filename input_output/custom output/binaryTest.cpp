@@ -24,11 +24,12 @@ int main()
     cout << "can't open file\n";
     return 1;
   }
+  
   // to write a string print out its length and then char *
   // str.size() is a temp, and you cannot write a temp, so you need a new variable
   unsigned strSize = str.size();
   ofs.write(reinterpret_cast<char *>(&strSize), sizeof(unsigned));
-
+  
   strSize = Z.size();
   ofs.write( reinterpret_cast<char *>(&strSize), sizeof(unsigned));
   ofs.write( reinterpret_cast<char *>(&Z[0]), Z.size()*sizeof(double));

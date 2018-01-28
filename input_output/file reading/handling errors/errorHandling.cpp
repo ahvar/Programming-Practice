@@ -19,7 +19,7 @@ int main()
   }
   if(cin.bad()) cout << "stream corrupt" << endl;
   if(cin.eof()) cout << "end of file" << endl;
-  if(cin.fail()) { cout << "something unexpected happened" << end; cin.clear(); cout << "recovered" << endl; }0
+  if(cin.fail()) { cout << "something unexpected happened" << end; cin.clear(); cout << "recovered" << endl; }
   return 0;
 
 

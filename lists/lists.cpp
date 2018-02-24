@@ -29,7 +29,6 @@ public:
   double getElem( int i ) const { return elem[i]; }
   void set( int i, double a ) { elem[i] = a; }
 
-
 };
 
 SimpleList *f( int s)

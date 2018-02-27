@@ -27,6 +27,8 @@ public:
   */
   Security(){};
 
+  virtual ~Security();
+
   /**
     Returns the market capitalization for this security
     @return mktcap the market capitalization

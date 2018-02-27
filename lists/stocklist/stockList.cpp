@@ -3,57 +3,75 @@
 */
 #include "stockList.h"
 
-void StockList::Node::setStock(std::string name, std::string ticker, double price, int quantity)
+StockList::Node::Node( Stock *s )
 {
-  stock.setName(name);
-  stock.setTicker(ticker);
-  stock.setPrice(price);
-  stock.setQuantity(quantity);
-
+  Node *n = new Node();
+  n->setStock(s);
 }
 
-StockList::StockList( Stock s, Node *p, Node *sc )
+StockList::Node::Node( Stock *s, Stock *s1, Stock *s2 )
 {
-  Stock a{};
-  head = new Node( s, p, sc );
-  head->succ = new Node( a, head, NULL);
-  head->prev = new Node( a, NULL, head);
+  Node n;
+  Node *ptr = &n;
+  n.succ = new Node();
+  n.succ->prev = ptr;
+  n.prev = new Node();
+  n.prev->succ = ptr;
+}
+
+void StockList::Node::setStock( Stock *s )
+{
+  stock.setName(s->getName());
+  stock.setTicker(s->getTicker());
+  stock.setValue(s->getValue());
+  stock.setQuantity(s->getQuantity());
+}
+
+StockList::StockList( Stock *s, Stock *p, Stock *sc )
+{
+  head = new Node( s );
+  head->succ = new Node( p );
+  head->prev = new Node( sc );
   head = head->prev;
   length = 3;
 }
 
-
-bool StockList::insertAtFront( Stock *s )
+StockList::StockList( Stock *s )
 {
-  Node n{};
-  n.setStock(s->getName(), s->getTicker(), s->getValue(), s->getShares());
-  Node *ptr = &n;
-  if ( head == NULL) {
-    head = ptr;
+  Node n;
+  n.setStock(s);
+  head = &n;
+
+}
+
+StockList::~StockList()
+{
+  Node *ptr = head;
+  Node *temp;
+  while( ptr != NULL) {
+    temp = ptr;
+    ptr = ptr->succ;
+    delete temp;
+  }
+}
+
+bool StockList::addToFront( Stock *s )
+{
+  if ( head == NULL && length == 0 ) {
+    head = new Node(s);
+    length++;
     return true;
-  } else {
-    ptr->succ = head;
-    head->prev = ptr;
-    ptr->prev = NULL;
-    head = ptr;
+  } else if ( head && length > 0 ) {
+    head->prev = new Node(s);
+    head->prev->succ = head;
+    head = head->prev;
+    length++;
     return true;
   }
   return false;
 }
 
-bool StockList::insertAtEnd( Stock *s )
-{
-  Node *ptr = head;
-  while (ptr->succ) 
-    ptr = ptr->succ;
-  ptr->succ = n;
-  n->prev = ptr->prev->succ;
-  length++;
-  return n;
-
-}
-
-Stock *StockList::find( double t, std::string nm )
+StockList::Node *StockList::find( double t, std::string nm )
 {
   Node *ptr = head;
   while( ptr->succ ) {
@@ -64,7 +82,7 @@ Stock *StockList::find( double t, std::string nm )
   return ptr;
 }
 
-Stock *StockList::getLast()
+StockList::Node *StockList::getLast()
 {
 
   Node *ptr = head;
@@ -74,26 +92,12 @@ Stock *StockList::getLast()
 
 }
 
-bool StockList::isSortedAscending()
-{
-
-  Node *ptr = head;
-  while(ptr->succ != NULL) {
-    if( ptr->stock.getValue() > ptr->succ->stock.getValue() )
-      return false;
-    ptr = ptr->succ;
-  }
-  return true;
-
-}
 
 bool StockList::isEmpty()
 {
   if(length==0)
     return true;
   return false;
-
-
 }
 
 

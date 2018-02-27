@@ -83,3 +83,76 @@ StockList::Node *StockList::add( Node *n )
   return n;
 
 }
+
+
+bool StockList::isSortedAscending()
+{
+
+  Node *ptr = head;
+  while(ptr->succ != NULL) {
+    if( ptr->stock.getValue() > ptr->succ->stock.getValue() )
+      return false;
+    ptr = ptr->succ;
+  }
+  return true;
+
+}
+
+  /**
+    Returns true if the list is currently sorted in ascending order by stock price.
+    @return true if sorted in ascending order
+  */
+  bool isSortedAscending();
+
+    /**
+    Add Stock s to the front of the list.
+
+    @param s the Stock to be added to the front of the list
+    @return true if the s is successfully added, false otherwise
+  */
+  bool insertAtFront( Stock *s );
+
+  bool StockList::insertAtFront( Stock *s )
+{
+  Node n{};
+  n.setStock(s->getName(), s->getTicker(), s->getValue(), s->getShares());
+  Node *ptr = &n;
+  if ( head == NULL) {
+    head = ptr;
+    return true;
+  } else {
+    ptr->succ = head;
+    head->prev = ptr;
+    ptr->prev = NULL;
+    head = ptr;
+    return true;
+  }
+  return false;
+}
+
+  /**
+    Returns a pointer to the Stock in the first Node in the list
+    @param a pointer to Stock in the first Node in the list
+  */
+  Stock *getFirst();
+
+
+    /**
+    Adds the Stock passed into the parameter 's' to the end of the list.
+
+    @param s the Stock to be insertec
+    @return true if the s is successfully added, false otherwise
+  */
+  bool insertAtEnd( Stock *s );
+
+  bool StockList::insertAtEnd( Stock *s )
+{
+  Node *ptr = head;
+  while (ptr->succ) 
+    ptr = ptr->succ;
+  ptr->succ = n;
+  n->prev = ptr->prev->succ;
+  length++;
+  return n;
+
+}

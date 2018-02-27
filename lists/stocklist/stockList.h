@@ -5,6 +5,9 @@
   nested in StockList, giving StockList access to Node's members.  
 */
 
+#ifndef STOCKLIST_H_
+#define STOCKLIST_H_
+
 #include <fstream>
 #include <istream>
 #include <sstream>
@@ -12,6 +15,7 @@
 #include <stdexcept>
 #include <vector>
 #include "security.h"
+
 
 class StockList {
   
@@ -28,18 +32,18 @@ private:
       @param p a pointer to the previous Node
       @param sc a pointer to the successor Node
     */
-    Node( Stock s, Node *p, Node *sc) : stock(s), prev(p), succ(sc) {}
+    Node( Stock *s, Stock *p, Stock *sc);
+
+    Node( Stock *s );
+
     /** The default constructor for Node */
     Node(){}
     /**
       Sets the stock instance variable with parameters name, ticker, price, and quantity.
 
-      @param name the name of the stock
-      @param ticker the ticker symbol for the stock on the exchange
-      @param price the price per share of the stock
-      @param quantity the number of shares available
+      @param s a pointer to the stock
     */
-    void setStock(std::string name, std::string ticker, double price, int quantity);
+    void setStock( Stock *s);
     /** The stock */  
     Stock stock;
     /** Pointer to the previous Node */
@@ -78,22 +82,32 @@ public:
   */
   StockList(){}
 
-  /**
-    Adds the Stock passed into the parameter 's' to the end of the list.
+  /** Destructor for StockList */
+  ~StockList();
 
-    @param s the Stock to be insertec
+  /**
+    Add Stock s to the front of the list.
+
+    @param s the Stock to be added to the front of the list
     @return true if the s is successfully added, false otherwise
   */
-  bool insertAtEnd( Stock *s );
+  bool addToFront( Stock *s );
+
+
+  bool addToEnd();
+
+
+  bool insert();
+
 
 
   /**
     Locates the first stock in the list with the price point described by the string parameter
     @param t the price of the target Stock
     @param nm the name of the stock
-    @return a pointer to the stock
+    @return a pointer to the Node
   */
-  Stock *find( double t, std::string nm);
+  Node *find( double t, std::string nm);
 
   /**
     Verifies that the list contains no elements.
@@ -102,31 +116,12 @@ public:
   bool isEmpty();
 
   /**
-    Add Stock s to the front of the list.
-
-    @param s the Stock to be added to the front of the list
-    @return true if the s is successfully added, false otherwise
-  */
-  bool insertAtFront( Stock *s );
-
-  /**
     Returns a pointer to the last Stock in the list
-    @return pointer to last Stock in the list
+    @return pointer to last Node in the list
   */
-  Stock *getLast();
-
-  /**
-    Returns a pointer to the Stock in the first Node in the list
-    @param a pointer to Stock in the first Node in the list
-  */
-  Stock *getFirst();
-
-
-  /**
-    Returns true if the list is currently sorted in ascending order by stock price.
-    @return true if sorted in ascending order
-  */
-  bool isSortedAscending();
+  Node *getLast();
   
 
 };
+
+#endif  
